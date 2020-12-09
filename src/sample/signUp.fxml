@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #49EAEA;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SignUpController">
+    <children>
+        <Label contentDisplay="CENTER" layoutX="127.0" prefHeight="51.0" prefWidth="347.0" text="Booking simulator" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="Showcard Gothic" size="32.0" />
+            </font>
+        </Label>
+        <AnchorPane layoutY="54.0" prefHeight="347.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Label layoutX="164.0" layoutY="14.0" prefHeight="45.0" prefWidth="272.0" text="Регистрация" textFill="#979797">
+                    <font>
+                        <Font size="45.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="login_field" layoutX="300.0" layoutY="94.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="223.0" promptText="Логин">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+                <PasswordField fx:id="password_field" layoutX="300.0" layoutY="143.0" prefHeight="25.0" prefWidth="223.0" promptText="Пароль">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </PasswordField>
+                <Button fx:id="reg_button" layoutX="195.0" layoutY="216.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="211.0" style="-fx-background-color: #49EAEA;" text="Зарегистрироваться" textFill="WHITE">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+            <TextField fx:id="secondname_field" layoutX="53.0" layoutY="143.0" prefHeight="25.0" prefWidth="223.0" promptText="Фамилия">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="firstname_field" layoutX="53.0" layoutY="94.0" prefHeight="25.0" prefWidth="223.0" promptText="Имя">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label fx:id="signUp_warning" layoutX="150.0" layoutY="296.0" prefHeight="37.0" prefWidth="300.0" textFill="#d97373b2">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
