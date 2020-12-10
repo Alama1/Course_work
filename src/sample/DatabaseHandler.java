@@ -62,4 +62,12 @@ public class DatabaseHandler extends DatabaseConfig{
         return resSet;
     }
 
+    public ResultSet getRaceAllInf(int id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = null;
+        String select = "SELECT * FROM " + "races" + " WHERE race_id =" + id;
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        resultSet = prSt.executeQuery();
+        return resultSet;
+    }
+
 }
