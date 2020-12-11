@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 public class RaceController {
     private List racesDest;
     ResultSet result2;
+    int race_id;
     String carrier;
     String destination;
     String destination_choise;
@@ -33,6 +34,7 @@ public class RaceController {
     String price;
     String seats_left;
     String[][] data;
+    int seatsCounter;
     int chosen_box;
     @FXML
     private ResourceBundle resources;
@@ -105,6 +107,7 @@ public class RaceController {
                 }
                 try {
                     book_button.setVisible(true);
+                    race_id = result2.getInt(1);
                     carrier = result2.getString(2);
                     destination_choise = result2.getString(3);
                     departureDate = result2.getString(4);
@@ -119,6 +122,35 @@ public class RaceController {
                     book_button.setOnAction(event1 -> {
                         dbHandler2.BookSet(CommonData.user.getCurrentUser(), chosen_box+1);
                         success_label.setVisible(true);
+
+                        ResultSet resultSeats = null;
+                        try {
+                            resultSeats = dbHandler2.SeatsCounter();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        while(true) {
+                            try {
+                                if (!resultSeats.next()) break;
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+                            try {
+                                seatsCounter = (resultSeats.getInt(1));
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+                        }
+                        try {
+                            dbHandler2.SeatsSet(seatsCounter, race_id);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        book_button.setVisible(false);
                     });
 
                 } catch (SQLException throwables) {

@@ -102,4 +102,18 @@ public class DatabaseHandler extends DatabaseConfig{
         return resultSet;
     }
 
+    public ResultSet SeatsCounter() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = null;
+        String select = "SELECT seats_left FROM " + "races";
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        resultSet = prSt.executeQuery();
+        return resultSet;
+    }
+    public void SeatsSet(int currentSeats, int race_id) throws SQLException, ClassNotFoundException {
+        String insert = "UPDATE races SET seats_left =(?) WHERE race_id =" + race_id;
+        PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+        prSt.setInt(1, currentSeats-1);
+        prSt.executeUpdate();
+    }
+
 }
