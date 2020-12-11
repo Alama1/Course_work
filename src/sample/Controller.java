@@ -40,6 +40,7 @@ public class Controller {
 
     @FXML
     void initialize() {
+
         authButton.setOnAction(event -> {
             String login_text = login_field.getText().trim();
             String password_text = password_field.getText().trim();
@@ -69,6 +70,7 @@ public class Controller {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
+
     }
 
     private void logInUser(String logintext, String passwordtext) throws SQLException {
@@ -86,6 +88,7 @@ public class Controller {
             counter++;
             String userName = (result.getString(2));
             user.setCurrentUserName(userName);
+            user.setCurrentUser(logintext);
         }
         if (counter >=1){
             authButton.getScene().getWindow().hide();

@@ -6,6 +6,15 @@ public class User {
     private String userName;
     private String password;
     private String currentUserName;
+    private String currentUser;
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
 
     public String getCurrentUserName() {
         return currentUserName;

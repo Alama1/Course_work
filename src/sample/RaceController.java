@@ -1,5 +1,6 @@
 package sample;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,18 +14,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class RaceController {
     private List racesDest;
     ResultSet result2;
     String carrier;
     String destination;
-    String destination2;
+    String destination_choise;
     String departureDate;
     String flight_time;
     String transplant;
@@ -45,11 +47,36 @@ public class RaceController {
     private Label race_info;
 
     @FXML
+    private Button book_button;
+
+    @FXML
+    private Label success_label;
+
+    @FXML
+    private Button back_button;
+
+    @FXML
     void initialize() throws SQLException, ClassNotFoundException {
         racesDest = new ArrayList();
         DatabaseHandler dbHandler = new DatabaseHandler();
+        book_button.setVisible(false);
+        success_label.setVisible(false);
         ResultSet result = dbHandler.getRace();
         int counter = 0;
+        back_button.setOnAction(event1 -> {
+            back_button.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/mainThing.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        });
         while (result.next()) {
             destination = (result.getString(3));
             racesDest.add(result.getString(3));
@@ -77,8 +104,9 @@ public class RaceController {
                     throwables.printStackTrace();
                 }
                 try {
+                    book_button.setVisible(true);
                     carrier = result2.getString(2);
-                    destination2 = result2.getString(3);
+                    destination_choise = result2.getString(3);
                     departureDate = result2.getString(4);
                     flight_time = result2.getString(5);
                     transplant = result2.getString(6);
@@ -86,11 +114,17 @@ public class RaceController {
                     seats_left = result2.getString(8);
                     if (transplant == "-")
                         transplant = "Без пересадок";
-                    race_info.setText("Перевозчик: " + carrier + "\n" + "Направление: " + destination2 + "\n" + "Время вылета: " + departureDate + "\n" + "Время полета: " + flight_time + " часа" + "\n" +
+                    race_info.setText("Перевозчик: " + carrier + "\n" + "Направление: " + destination_choise + "\n" + "Время вылета: " + departureDate + "\n" + "Время полета: " + flight_time + " часа" + "\n" +
                             "Пересадки: " + transplant + "\n" + "Цена: " + price + "\n" + "Осталось мест: " + seats_left);
+                    book_button.setOnAction(event1 -> {
+                        dbHandler2.BookSet(CommonData.user.getCurrentUser(), chosen_box+1);
+                        success_label.setVisible(true);
+                    });
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+
             }
         });
     }

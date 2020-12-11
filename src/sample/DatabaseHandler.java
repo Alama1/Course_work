@@ -18,6 +18,7 @@ public class DatabaseHandler extends DatabaseConfig{
 
         return dbConnection;
     }
+
     public void SignUpUser(User user){
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USER_FIRSTNAME + "," +
                 Const.USER_LASTNAME + "," + Const.USER_USERNAME + "," + Const.USER_PASSWORD
@@ -34,6 +35,7 @@ public class DatabaseHandler extends DatabaseConfig{
         }
 
     }
+
     public ResultSet getUser(User user){
         ResultSet resSet = null;
 
@@ -52,8 +54,8 @@ public class DatabaseHandler extends DatabaseConfig{
             e.printStackTrace();
         }
         return resSet;
-
     }
+
     public ResultSet getRace() throws SQLException, ClassNotFoundException {
         ResultSet resSet = null;
         String select = "SELECT * FROM " + "races";
@@ -65,6 +67,36 @@ public class DatabaseHandler extends DatabaseConfig{
     public ResultSet getRaceAllInf(int id) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = null;
         String select = "SELECT * FROM " + "races" + " WHERE race_id =" + id;
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        resultSet = prSt.executeQuery();
+        return resultSet;
+    }
+
+    public void BookSet(String CurUser, int CurRace_id){
+        String insert = "INSERT INTO " + "book_table " + "(" + "book_user" + "," + "book_race_id" + ")" + "VALUES(?,?)";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+            prSt.setString(1, CurUser);
+            prSt.setInt(2, CurRace_id);
+            prSt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ResultSet getRaceId() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = null;
+        String select = "SELECT * FROM book_table WHERE book_user ='" + CommonData.user.getCurrentUser() + "'";
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        resultSet = prSt.executeQuery();
+        return resultSet;
+    }
+
+    public ResultSet getRaceBook(int race_id_book) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = null;
+        String select = "SELECT * FROM " + "races " + "WHERE race_id ='" +  race_id_book + "'";
         PreparedStatement prSt = getDbConnection().prepareStatement(select);
         resultSet = prSt.executeQuery();
         return resultSet;

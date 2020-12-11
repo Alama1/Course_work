@@ -14,10 +14,18 @@
                <font>
                   <Font name="Century Gothic" size="29.0" />
                </font></Label>
-            <Button fx:id="race_button" layoutX="37.0" layoutY="119.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: #FFFFFF;" text="Доступные рейсы">
+            <Button fx:id="race_button" layoutX="78.0" layoutY="119.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: #D1D1D1;" text="Доступные рейсы">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
+               </cursor>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="your_book" layoutX="348.0" layoutY="119.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="171.0" style="-fx-background-color: #D1D1D1;" text="Ваши брони">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
         </AnchorPane>
         <Label contentDisplay="CENTER" layoutX="129.0" layoutY="3.0" prefHeight="51.0" prefWidth="342.0" text="Booking simulator" textAlignment="CENTER" textFill="WHITE">

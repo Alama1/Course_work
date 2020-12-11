@@ -27,7 +27,25 @@ public class ControllerMainApp {
     private Button race_button;
 
     @FXML
+    private Button your_book;
+
+    @FXML
     void initialize() {
+        your_book.setOnAction(event ->{
+            your_book.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/yourBook.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        });
+
         greeter.setText("Привет, " + CommonData.user.getCurrentUserName() + "!");
         race_button.setOnAction(event -> {
             race_button.getScene().getWindow().hide();
